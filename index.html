@@ -2,415 +2,1840 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aset</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    
+    <title>Aset Company Limited</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e09201;
+            --primary-dark: #282621;
+            --secondary: #7c3aed;
+            --accent: #f59e0b;
+            --dark: #282621;
+            --light: #f8fafc;
+            --gray-light: #e2e8f0;
+            --transition: all 0.3s ease;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 8px;
+        }
 
-    <link rel="stylesheet" href="./css/aset style.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--gray);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            max-width: 600px;
+            margin: 1rem auto 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: #6d28d9;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 1.8rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu li {
+            margin-left: 2rem;
+        }
+
+        .nav-menu a {
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 10rem 0 5rem;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.1);
+            z-index: 0;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .hero-text h1 span {
+            color: var(--primary);
+        }
+
+        .hero-text p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            margin-bottom: 2rem;
+            color: var(--gray);
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* About Section */
+        .about {
+            background: white;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h2 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text h2 span {
+            color: var(--primary);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat h3 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin: 0;
+        }
+
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        /* Services Section */
+        .services {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: var(--primary);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .service-card:hover::before {
+            height: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            color: white;
+        }
+
+        .service-card:hover .service-icon,
+        .service-card:hover p {
+            color: white;
+        }
+
+        .service-icon {
+            font-size: clamp(2.5rem, 5vw, 3rem);
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .service-card h3 {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            margin-bottom: 1rem;
+        }
+
+        /* Team Section */
+        .team {
+            background: white;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+            gap: 2rem;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .member-image {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .team-member:hover .member-image img {
+            transform: scale(1.1);
+        }
+
+        .member-info {
+            padding: 1.5rem;
+        }
+
+        .member-info h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .member-info p {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .member-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .member-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--gray-light);
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        .member-social a:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+            gap: 2rem;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2.5rem 2rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .pricing-card.featured {
+            transform: scale(1.05);
+            border: 2px solid var(--primary);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .pricing-header {
+            margin-bottom: 2rem;
+        }
+
+        .pricing-name {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-price {
+            font-size: clamp(2.5rem, 5vw, 3rem);
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-period {
+            color: var(--gray);
+        }
+
+        .pricing-features {
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: white;
+        }
+
+        .contact-content {
+            display: flex;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-info h2 {
+            font-size: clamp(1.75rem, 4vw, 2rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 2rem;
+        }
+
+        .contact-details {
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-form {
+            flex: 1;
+            background: var(--light);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 2rem 1rem;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 2rem auto;
+            border-radius: var(--radius);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--dark);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        /* Project Modal */
+        .project-details {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .project-image {
+            flex: 1;
+        }
+
+        .project-image img {
+            width: 100%;
+            border-radius: var(--radius);
+        }
+
+        .project-info {
+            flex: 1;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .project-tag {
+            background: var(--gray-light);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* Service Modal */
+        .service-modal-content {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .service-modal-image {
+            flex: 1;
+        }
+
+        .service-modal-image img {
+            width: 100%;
+            border-radius: var(--radius);
+        }
+
+        .service-modal-info {
+            flex: 1;
+        }
+
+        .service-features {
+            margin: 1.5rem 0;
+        }
+
+        .service-features li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .service-features li i {
+            color: var(--primary);
+            margin-right: 0.75rem;
+        }
+
+        /* Team Member Modal */
+        .team-modal-content {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .team-modal-image {
+            flex: 1;
+        }
+
+        .team-modal-image img {
+            width: 100%;
+            border-radius: var(--radius);
+        }
+
+        .team-modal-info {
+            flex: 1;
+        }
+
+        .team-modal-stats {
+            display: flex;
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+
+        .team-modal-stat {
+            text-align: center;
+        }
+
+        .team-modal-stat h4 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .team-modal-stat p {
+            font-size: 0.8rem;
+            margin: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-content {
+                padding-top: 5rem;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text {
+                margin-bottom: 3rem;
+            }
+
+            .hero-btns {
+                justify-content: center;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .contact-content {
+                flex-direction: column;
+            }
+
+            .project-details,
+            .service-modal-content,
+            .team-modal-content {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 80%;
+                height: calc(100vh - 70px);
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                transition: var(--transition);
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .nav-menu li {
+                margin: 1rem 0;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-10px);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+
+            .about-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .modal-body {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .stagger-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+    </style>
 </head>
 <body>
-    
-    <div class="nav-bar">
-        <div class="left-bar">
-            <div class="image-1">
-                <img src="./img/aset/logo-800.png" alt="">
-            </div>
-            <div class="pc-img">
-                <img src="./img/aset/LOGO.png" alt="">
-            </div>
-            <div class="btn-group">
-                <a href="#hm"><i class="fa-solid fa-house-chimney"></i></a>
-                <a href="#about"><i class="fa-solid fa-user-shield"></i></a>
-                <a href="#servi"><i class="fa-solid fa-server"></i></a>
-                <a href="#proj"> <i class="fa-brands fa-product-hunt"></i></a>
-                <a href="#cont"><i class="fa-solid fa-address-book"></i></a>
-            </div>
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <img src="./img/logo_01.png" alt="">
+                <ul class="nav-menu">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#services" class="nav-link">Services</a></li>
+                    <li><a href="#team" class="nav-link">Team</a></li>
+                    <li><a href="#pricing" class="nav-link">Pricing</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                    <li><a href="#" class="btn">Get Started</a></li>
+                </ul>
+                <div class="nav-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
         </div>
-               
-    </div>
+    </header>
 
-    <div class="home">
-        <a id="hm"></a>
-        <img src="./img/aset/A.png" alt="">
-       <div class="home-box">
-        <h2>Hello, Welcome to Aset.</h2>
-        <p>Aset is the company that gives the difference between the almost right
-            services and the right services, i.e. the difference in the quality, 
-            eloquently, on time and technology of the services that Aset provides you. </p>
-       <p>"LET THE TECH TAKE US"</p>
-       </div>
-    
-    </div>
-   
-    <div class="comp-home">
-        <a id="about"></a>
-       <div class="black">
-        <h3>Aset, the digital service provider <br>
-            <span>company</span> that creates progress</h3>
-        <div class="para">
-                <p>
-                    You can get everything, with Aset. 
-                    We are always strive to give you excellent services,
-                    we trust that you will find what you need. Welcome! 
-                    We strive for two things in design: simplicity and clarity. 
-                    We love what we do and we do what our clients love & work with 
-                    great clients all over the world to create thoughtful
-                </p>
-           <div class="color">
-             <p>
-                With Aset, our clients are able to place an order of any service
-               that are provided by Aset and receive an on time reply details of the
-               specific service. We also provide counsel on the best technology that 
-               you can use for your own need.
-            </p>
-           
-           </div>
-           
+    <!-- Hero Section -->
+    <section id="home" class="hero section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text fade-in">
+                    <h1>Digital Solutions for <span>Modern Businesses</span></h1>
+                    <p>Aset provides cutting-edge technology services that drive growth, efficiency, and innovation for businesses of all sizes.</p>
+                    <div class="hero-btns">
+                        <a href="#services" class="btn">Our Services</a>
+                        <a href="#contact" class="btn btn-outline">Contact Us</a>
+                    </div>
+                </div>
+                <div class="hero-image slide-in-right">
+                    <img src="./img/Float logo.png" alt="Digital Solutions" width="500">
+                </div>
+            </div>
         </div>
-       </div>
-    </div>
+    </section>
 
-    <div class="the-serv">
-        <a id="servi"></a>
-        <div class="cards">
-            <div class="card-1" data-aos="fade-down">
-             <div class="words">
-                 <div><i class="fa-solid fa-code"></i></div>
-                 <h2>Website development</h2>
-                 <p>
-                 Our App & Website developers are committed to offering scalable, 
-                 cloud-ready and intuitive apps for mobile phones, tablets, and phablets and create 
-                 purposeful websites, We also provide Android mobile application support 
-                 and maintenance services to our clients 
-                 </p>
-             </div>
-            </div>
-            <div class="card-2" data-aos="fade-up">
-             <div class="words">
-                 <i class="fa-solid fa-pen-nib"></i>
-                 <h2>Graphics & design</h2>
-                 <p>
-                     The key to great ideas is not having them,
-                      it is executing them. And great ideas come from problems.
-                       As designers we call problems, briefs and we call reactions 
-                       to problems, concepts. We want to make beautiful things, even if 
-                       nobody cares, as opposed to ugly things. That’s our intent.
-                 </p>
-             </div>
-            </div>
-            <div class="card-1" data-aos="fade-down">
-             <div class="words">
-                 <div><i class="fa-solid fa-screwdriver-wrench"></i></div>
-                 <h2>Computer repairing</h2>
-                 <p>
-                     We provide computer repair services at Aset, 
-                     Repairs are always necessary. It's much cheaper to have it 
-                     repaired than to buy a new one, and also Aset, 
-                     provides skilled engineers with fast and reliable access to 
-                     other engineers in different or relatable fields. Get in touch with
-                     Aset. 
-                 </p>
-             </div>
-            </div>
-            <div class="card-2" data-aos="fade-up">
-             <div class="words">
-                 <i class="fa-sharp fa-solid fa-gears"></i>
-                 <h2>Automation & programing</h2>
-                 <p>
-                     The first rule of any technology used in a business 
-                     is that automation applied to an efficient operation 
-                     will magnify the efficiency. The second is that automation 
-                     applied to an inefficient operation will magnify the inefficiency.
-                     Aset provides industrial automation service in any factory.
-                     
-                 </p>
-             </div>
-            </div>
-         </div>
-         <div class="serv-pro" data-aos="fade-up">
-            <a href="#">Services Provided</a>
-         </div>
-    </div>
-    
-    <div class="tech">
-        <a id="proj"></a>
-        <div class="back">
-            <img src="./img/aset/LOGO.png" alt="">
-            <h2>"LET THE <span>TECH</span> TAKE US"</h2>
-            <p>Aset, the only compony that deals with the provision <br>
-               of different services that are in quality, i.e,<span>
-                Automation <br>
-                & programing, computer repair, websites development, Networking, <br>
-                Plumbing, App development, Software development and Graphics & design.
-               </span></p>
-            <a href="#">Projects done</a>
-        </div>
-    </div>
-
-    <div class="wordz">
-       <div class="all-wordz">
-        <div class="help">
-            <h2>We can help <span><i class="fa-solid fa-handshake-angle"></i></span> you with all <br>
-                your <span>problems</span> & give you<br>
-                the best solutions.
-            </h2>
-            <p>We're ready to share our advise and experience</p>
-        </div>
-        <div class="image">
-            <img src="./img/aset/solving.png" alt="">
-        </div>
-       </div>
-    </div>
-    
-    <div class="all-experts">
-        <a id="about"></a>
-        <marquee behavior="repeat" direction="right">
-            <p> >Click on the picture to know the individual< </p>
-        </marquee>
-        <div class="Experts">
-            <div class="dev" data-aos="fade-up" data-aos-duration="500">
-                <div class="dev-1">
-                    <div class="h2">
-                        <h2>01</h2>
-                    </div>
-                <p>"What separates good content from great <br>
-                    content is a willingness to take risk <br>
-                    and push the envelope"</p>
-                <a href="https://aseriy-bot.github.io/aseriy/"><img src="./img/aset/aseriy.png" alt=""></a>
-                <h3>Aseriy Tuvana</h3>
-                <h6>CEO & CO FOUNDER</h6>
-                </div>
-            </div>
-            <div class="dev" data-aos="fade-up" data-aos-duration="1000">
-                <div class="dev-1">
-                    <div class="h2">
-                        <h2>02</h2>
-                    </div>
-                <p>"What separates good content from great <br>
-                    content is a willingness to take risk <br>
-                    and push the envelope"</p>
-                <img src="./img/aset/aseriy.png" alt="">
-                <h3>Aseriy Tuvana</h3>
-                <h6>CEO & CO FOUNDER</h6>
-                </div>
-            </div>
-            <div class="dev" data-aos="fade-up" data-aos-duration="1500">
-                <div class="dev-1">
-                    <div class="h2">
-                        <h2>03</h2>
-                    </div>
-                <p>"What separates good content from great <br>
-                    content is a willingness to take risk <br>
-                    and push the envelope"</p>
-                <img src="./img/aset/aseriy.png" alt="">
-                <h3>Aseriy Tuvana</h3>
-                <h6>CEO & CO FOUNDER</h6>
-                </div>
-            </div>
-            
-        </div>
-    </div>
-
-    <div class="module">
-        <div class="saving">
-            <div class="h2">
-                <h2>Start saving your <br>
-                    money with the <br>
-                    best services.</h2>
-            </div>
-            <div class="lock">
-                <i class="fa-solid fa-lock-open"></i>
-                <p>Quality and reliable services <br>
-                   are provided by Aset, at <br>
-                    standard and best price.</p>
-            </div>
-            
-        </div>
-
-        <div class="gapes">
-          <div class="no-gap">
-            <div class="all-card">
-                <div class="ava-serv">
-                    <div class="name">
-                        <h2>Solo</h2>
-                        <h4>For freelancer & solo designers</h4>
-                    </div>
-                    <div class="cost">
-                        <h3>50k</h3>
-                    </div>
-                </div>
-                <div class="include">
-                    <h4>Includes:</h4>
-                    <h5><i class="fa-solid fa-circle-check"></i> One editor license</h5>
-                    <h5><i class="fa-solid fa-circle-check"></i> Figma design system</h5>
-                    <h5><i class="fa-solid fa-circle-check"></i> Lifetime access to future</h5>
-                    <div class="a">
-                        <a href="#">Purchase Module</a>
-                    </div>
-                </div>
-    
-            </div>
-            <div class="all-card-2">
-                <div class="ava-serv">
-                    <div class="name">
-                        <h2>Team</h2>
-                        <h4>Best choice for a team of any size</h4>
-                    </div>
-                    <div class="cost">
-                        <h3>120k</h3>
-                    </div>
-                </div>
-                <div class="include">
-                    <h4>Includes:</h4>
-                    <h5><i class="fa-solid fa-circle-check"></i> Unlimited number of editor</h5>
-                    <h5><i class="fa-solid fa-circle-check"></i> Figma design system</h5>
-                    <h5><i class="fa-solid fa-circle-check"></i> Lifetime access to future</h5>
-                    <div class="a">
-                        <a href="#">Purchase Module</a>
-                    </div>
-                </div>
-    
-            </div>
-          </div>
-        </div>
-        
-    </div>
-
-    <div class="services">
-        <div class="top">
-            <h2>We are the best agency to solve your problems</h2>
-            <h5>We work direct for our clients and put clients interest first.</h5>
-            <p>Everything can be necessary to manage different problems using modern solutions.
-                From identifying the problem, planning the best solution, providing the best solutions,
-                development of designing concepts, project management plan, strategy & tactics of the 
-                project as well as best customer services.</p>
-        </div>
-
-        <div class="in-touch">
-            <div class="maneno">
-                <p>Get in touch</p>
-                <h3>Updated services provided</h3>
-            </div>
-            <div class="request">
-                <a href="#">Request service NOW!</a>
-            </div>
-        </div>
-
-        <div class="update-serv">
-           <div class="pin-serv">
-            <div class="serv-provided-1">
-                <div class="serv">
-                    <h2>18</h2>
-                <h3>Website <br>
-                    development</h3>
-                </div>
-            </div>
-            <div class="serv-provided-2">
-                <div class="serv">
-                    <h2>23</h2>
-                <h3>Posters</h3>
-                </div>
-            </div>
-            <div class="serv-provided-1">
-                <div class="serv">
-                    <h2>06</h2>
-                <h3>Graphics
-                    & 
-                    design</h3>
-                </div>
-            </div>
-            <div class="serv-provided-2">
-                <div class="serv">
-                    <h2>02</h2>
-                <h3>Plumbing</h3>
-                </div>
-            </div>
-           </div>
-        </div>
-    </div>
-
-    <footer>
-        <a id="cont"></a>
-        <a id="contacts"></a>
-       <div class="details">
-            <div class="all-tags">
-                <div class="tag-1">
-                    <div class="footer-col">
-                        <h3>Top Services</h3>
-                        <li>Poster Design</li>
-                        <li>PLC Automation</li>
-                        <li>Computer Repair</li>
-                        <li>Website Development</li>
-                     </div>
-                    <div class="footer-col">
-                        <h3>Quick Link</h3>
-                        <li>Developer</li>
-                        <li>Project Done</li>
-                        <li>Services Provided</li>
-                        <li>Terms of Services</li>
-                    </div>
-                 </div>
-                 <div class="tag-2">
-                    <div class="footer-col">
-                        <h3>Features</h3>
-                        <li>Different Design</li>
-                        <li>Managed Website</li>
-                        <li>Marketing Services</li>
-                        <li>Manage Reputation</li>
-                    </div>
-                    <div class="footer-col">
-                        <h3>Resources</h3>
-                        <li>Guides</li>
-                        <li>Experts</li>
-                        <li>Research</li>
-                        <li>Marketing Services</li>
-                    </div>
-                 </div>
-            </div>
-    
-        <div class="footer-col">
-            <h3>Newsletter</h3>
-            <p>You can trust us. We only send promo offers</p>
-            <div class="subscribe">
-                <input type="text" placeholder="Your Email address">
-                <a href="#" class="yellow">SUBSCRIBE</a>
-            </div>
-        </div>
-       </div>
-    
-        <div class="copyright">
-            <div class="contact">
-                <div class="cont">
-                <h1>Contact Us</h1>
-                <li>Call & Whatsapp</li>
-                <li>+255 621 850 250</li>
-                </div>
-                <div class="pro-links">
-                    <div class="pro-1">
-                        <div class="facebook">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+    <!-- About Section -->
+    <section id="about" class="about section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text slide-in-left">
+                    <h2>We Create Progress With <span>Digital Innovation</span></h2>
+                    <p>Aset is a forward-thinking digital service provider committed to delivering exceptional solutions that transform businesses. Our team of experts combines technical expertise with creative thinking to solve complex challenges.</p>
+                    <p>With years of experience across various industries, we understand what it takes to build digital products that not only meet but exceed expectations.</p>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <h3>150+</h3>
+                            <p>Projects Completed</p>
                         </div>
-                        <div class="ig">
-                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        <div class="stat">
+                            <h3>50+</h3>
+                            <p>Happy Clients</p>
                         </div>
-                        <div class="linkdelin">
+                        <div class="stat">
+                            <h3>5+</h3>
+                            <p>Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image slide-in-right">
+                    <a href="#"><img src="/img/right_1.jpg" alt="Our Team" width="500"></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Services</h2>
+                <p>We offer a comprehensive range of digital services to help your business thrive in the modern landscape.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card stagger-item" data-service="web-development">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Web Development</h3>
+                    <p>Custom websites and web applications built with the latest technologies for optimal performance and user experience.</p>
+                </div>
+                <div class="service-card stagger-item" data-service="app-development">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>App Development</h3>
+                    <p>Native and cross-platform mobile applications designed to engage users and deliver exceptional functionality.</p>
+                </div>
+                <div class="service-card stagger-item" data-service="ui-ux-design">
+                    <div class="service-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>UI/UX Design</h3>
+                    <p>User-centered design solutions that create intuitive, engaging, and visually appealing digital experiences.</p>
+                </div>
+                <div class="service-card stagger-item" data-service="digital-marketing">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Digital Marketing</h3>
+                    <p>Data-driven marketing strategies to increase visibility, engagement, and conversions across digital channels.</p>
+                </div>
+                <div class="service-card stagger-item" data-service="cloud-solutions">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>Cloud Solutions</h3>
+                    <p>Scalable cloud infrastructure and services to optimize operations, security, and business continuity.</p>
+                </div>
+                <div class="service-card stagger-item" data-service="automation">
+                    <div class="service-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Automation</h3>
+                    <p>Intelligent automation solutions to streamline processes, reduce costs, and improve efficiency.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="team section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Team</h2>
+                <p>Meet the talented professionals behind our success and innovation.</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-member stagger-item" data-member="aseriy-tuvana">
+                    <div class="member-image">
+                        <img src="./img/AFT.jpg" alt="Aseriy Tuvana">
+                    </div>
+                    <div class="member-info">
+                        <h3>Aseriy Tuvana</h3>
+                        <p>CEO & Founder</p>
+                        <p>Visionary leader with 10+ years in tech innovation and business strategy.</p>
+                        <div class="member-social">
                             <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
-                    <li>@Aset.co.ltd.</li>
+                </div>
+                <div class="team-member stagger-item" data-member="sarah-johnson">
+                    <div class="member-image">
+                        <img src="img/AFT.jpg" alt="Sarah Johnson">
+                    </div>
+                    <div class="member-info">
+                        <h3>Sarah Johnson</h3>
+                        <p>CTO</p>
+                        <p>Technical expert specializing in scalable architecture and emerging technologies.</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member stagger-item" data-member="michael-chen">
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Michael Chen">
+                    </div>
+                    <div class="member-info">
+                        <h3>Michael Chen</h3>
+                        <p>Lead Developer</p>
+                        <p>Full-stack developer with expertise in modern frameworks and cloud technologies.</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member stagger-item" data-member="emily-rodriguez">
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=761&q=80" alt="Emily Rodriguez">
+                    </div>
+                    <div class="member-info">
+                        <h3>Emily Rodriguez</h3>
+                        <p>UX Designer</p>
+                        <p>Creative designer focused on user-centered design and interactive experiences.</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-dribbble"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <p>Copyright @2022. All rights Reserved | Designed by Aseriy.T</p>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Pricing</h2>
+                <p>Flexible pricing plans designed to meet your specific business needs and budget.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card stagger-item" data-plan="starter">
+                    <div class="pricing-header">
+                        <h3 class="pricing-name">Starter</h3>
+                        <div class="pricing-price">$499</div>
+                        <div class="pricing-period">per month</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Basic Website Development</li>
+                        <li>5 Pages</li>
+                        <li>Responsive Design</li>
+                        <li>Basic SEO</li>
+                        <li>Email Support</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline">Get Started</a>
+                </div>
+                <div class="pricing-card featured stagger-item" data-plan="professional">
+                    <div class="pricing-header">
+                        <h3 class="pricing-name">Professional</h3>
+                        <div class="pricing-price">$999</div>
+                        <div class="pricing-period">per month</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Custom Web Application</li>
+                        <li>Up to 15 Pages</li>
+                        <li>Advanced SEO</li>
+                        <li>E-commerce Functionality</li>
+                        <li>Priority Support</li>
+                    </ul>
+                    <a href="#" class="btn">Get Started</a>
+                </div>
+                <div class="pricing-card stagger-item" data-plan="enterprise">
+                    <div class="pricing-header">
+                        <h3 class="pricing-name">Enterprise</h3>
+                        <div class="pricing-price">$1999</div>
+                        <div class="pricing-period">per month</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Full-stack Development</li>
+                        <li>Unlimited Pages</li>
+                        <li>Custom Features</li>
+                        <li>Dedicated Account Manager</li>
+                        <li>24/7 Premium Support</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+                <p>Get in touch with us to discuss your project and how we can help bring your ideas to life.</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info slide-in-left">
+                    <h2>Let's Start a Conversation</h2>
+                    <p>We're here to answer any questions you may have and help you determine which of our services is the best fit for your needs.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h3>Our Location</h3>
+                                <p>123 Business Avenue, Suite 100<br>New York, NY 10001</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <h3>Phone Number</h3>
+                                <p>+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h3>Email Address</h3>
+                                <p>info@aset.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form slide-in-right">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" class="form-control" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>About Aset</h3>
+                    <p>Aset is a leading digital solutions provider dedicated to helping businesses thrive through innovative technology and strategic digital transformation.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home"><i class="fa-solid fa-house"></i> Home</a></li>
+                        <li><a href="#about"><i class="fa-solid fa-address-card"></i> About Us</a></li>
+                        <li><a href="#services"><i class="fa-solid fa-wrench"></i> Services</a></li>
+                        <li><a href="#team"><i class="fa-solid fa-people-group"></i> Our Team</a></li>
+                        <li><a href="#pricing"><i class="fa-solid fa-money-check-dollar"></i> Pricing</a></li>
+                        <li><a href="#contact"><i class="fa-solid fa-money-check-dollar"></i> Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#" data-service="web-development"><i class="fas fa-code"></i> Web Development</a></li>
+                        <li><a href="#" data-service="app-development"><i class="fas fa-mobile-alt"></i> App Development</a></li>
+                        <li><a href="#" data-service="ui-ux-design"><i class="fas fa-palette"></i> UI/UX Design</a></li>
+                        <li><a href="#" data-service="digital-marketing"><i class="fas fa-chart-line"></i> Digital Marketing</a></li>
+                        <li><a href="#" data-service="cloud-solutions"><i class="fas fa-cloud"></i> Cloud Solutions</a></li>
+                        <li><a href="#" data-service="automation"><i class="fas fa-cogs"></i> Automation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter to receive updates on our latest services and industry insights.</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="form-control" placeholder="Your Email" required>
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Aset. All Rights Reserved. | Designed with <i class="fas fa-heart" style="color: #e09201;"></i> by Aset Team</p>
+            </div>
         </div>
     </footer>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>AOS.init();</script>
+
+    <!-- Service Modal -->
+    <div id="serviceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="serviceModalTitle">Service Details</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="service-modal-content">
+                    <div class="service-modal-image">
+                        <img id="serviceModalImage" src="" alt="Service Image">
+                    </div>
+                    <div class="service-modal-info">
+                        <p id="serviceModalDescription"></p>
+                        <div class="service-features">
+                            <h3>Key Features</h3>
+                            <ul id="serviceModalFeatures"></ul>
+                        </div>
+                        <div class="hero-btns">
+                            <a href="#contact" class="btn">Get This Service</a>
+                            <a href="#" class="btn btn-outline close-modal">Close</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team Member Modal -->
+    <div id="teamModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="teamModalTitle">Team Member</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="team-modal-content">
+                    <div class="team-modal-image">
+                        <img id="teamModalImage" src="" alt="Team Member">
+                    </div>
+                    <div class="team-modal-info">
+                        <h3 id="teamModalPosition"></h3>
+                        <p id="teamModalBio"></p>
+                        <div class="team-modal-stats">
+                            <div class="team-modal-stat">
+                                <h4 id="teamModalProjects">0</h4>
+                                <p>Projects</p>
+                            </div>
+                            <div class="team-modal-stat">
+                                <h4 id="teamModalExperience">0</h4>
+                                <p>Years Experience</p>
+                            </div>
+                            <div class="team-modal-stat">
+                                <h4 id="teamModalClients">0</h4>
+                                <p>Happy Clients</p>
+                            </div>
+                        </div>
+                        <div class="member-social">
+                            <a id="teamModalLinkedin" href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a id="teamModalTwitter" href="#"><i class="fab fa-twitter"></i></a>
+                            <a id="teamModalGithub" href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pricing Modal -->
+    <div id="pricingModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="pricingModalTitle">Pricing Plan</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="pricing-header">
+                    <h3 class="pricing-name" id="pricingModalName"></h3>
+                    <div class="pricing-price" id="pricingModalPrice"></div>
+                    <div class="pricing-period" id="pricingModalPeriod"></div>
+                </div>
+                <ul class="pricing-features" id="pricingModalFeatures"></ul>
+                <div class="hero-btns">
+                    <a href="#contact" class="btn">Choose This Plan</a>
+                    <a href="#" class="btn btn-outline close-modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation Toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a nav link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Active navigation link
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Stagger animation for grid items
+                    if (entry.target.classList.contains('stagger-item')) {
+                        const items = entry.target.parentElement.querySelectorAll('.stagger-item');
+                        items.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.classList.add('visible');
+                            }, index * 100);
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .stagger-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+
+        // Service data
+        const services = {
+            'web-development': {
+                title: 'Web Development',
+                image: 'https://cdn.pixabay.com/photo/2016/11/19/15/32/code-1839877_1280.jpg',
+                description: 'We create responsive, high-performance websites and web applications using the latest technologies. Our development process focuses on user experience, performance, and scalability.',
+                features: [
+                    'Custom website design and development',
+                    'Responsive design for all devices',
+                    'E-commerce solutions',
+                    'Content management systems',
+                    'API integration',
+                    'Performance optimization',
+                    'Security implementation',
+                    'Ongoing maintenance and support'
+                ]
+            },
+            'app-development': {
+                title: 'App Development',
+                image: 'https://cdn.pixabay.com/photo/2015/02/05/08/06/mac-624707_1280.jpg',
+                description: 'We build native and cross-platform mobile applications that deliver exceptional user experiences and drive business growth.',
+                features: [
+                    'iOS and Android app development',
+                    'Cross-platform solutions',
+                    'User-centered design',
+                    'Backend integration',
+                    'App store optimization',
+                    'Performance testing',
+                    'Regular updates and maintenance',
+                    'Analytics integration'
+                ]
+            },
+            'ui-ux-design': {
+                title: 'UI/UX Design',
+                image: 'https://cdn.pixabay.com/photo/2017/08/10/08/47/laptop-2620118_1280.jpg',
+                description: 'Our design team creates intuitive, engaging user interfaces that enhance user satisfaction and drive conversions.',
+                features: [
+                    'User research and analysis',
+                    'Wireframing and prototyping',
+                    'Visual design and branding',
+                    'Interaction design',
+                    'Usability testing',
+                    'Design system creation',
+                    'Responsive design implementation',
+                    'Accessibility compliance'
+                ]
+            },
+            'digital-marketing': {
+                title: 'Digital Marketing',
+                image: 'https://cdn.pixabay.com/photo/2016/03/09/09/22/meeting-1245776_1280.jpg',
+                description: 'We develop data-driven marketing strategies that increase visibility, engagement, and conversions across digital channels.',
+                features: [
+                    'Search engine optimization (SEO)',
+                    'Pay-per-click advertising (PPC)',
+                    'Social media marketing',
+                    'Content marketing strategy',
+                    'Email marketing campaigns',
+                    'Analytics and reporting',
+                    'Conversion rate optimization',
+                    'Marketing automation'
+                ]
+            },
+            'cloud-solutions': {
+                title: 'Cloud Solutions',
+                image: 'https://cdn.pixabay.com/photo/2020/05/21/18/58/cloud-5203260_1280.jpg',
+                description: 'We provide scalable cloud infrastructure and services to optimize operations, security, and business continuity.',
+                features: [
+                    'Cloud migration services',
+                    'Infrastructure as a Service (IaaS)',
+                    'Platform as a Service (PaaS)',
+                    'Cloud security implementation',
+                    'Disaster recovery planning',
+                    'Cost optimization',
+                    'Performance monitoring',
+                    '24/7 support and maintenance'
+                ]
+            },
+            'automation': {
+                title: 'Automation',
+                image: 'https://cdn.pixabay.com/photo/2019/05/15/12/34/artificial-intelligence-4204841_1280.jpg',
+                description: 'We implement intelligent automation solutions to streamline processes, reduce costs, and improve efficiency.',
+                features: [
+                    'Process analysis and optimization',
+                    'Workflow automation',
+                    'Robotic Process Automation (RPA)',
+                    'AI and machine learning integration',
+                    'Custom automation solutions',
+                    'Performance monitoring',
+                    'Continuous improvement',
+                    'Training and support'
+                ]
+            }
+        };
+
+        // Team data
+        const teamMembers = {
+            'aseriy-tuvana': {
+                name: 'Aseriy Tuvana',
+                position: 'CEO & Founder',
+                image: './img/AFT.jpg',
+                bio: 'Aseriy is the visionary leader behind Aset, with over 10 years of experience in technology innovation and business strategy. He founded Aset with the mission to help businesses leverage technology for growth and transformation.',
+                projects: 75,
+                experience: 12,
+                clients: 50,
+                linkedin: '#',
+                twitter: '#',
+                github: '#'
+            },
+            'sarah-johnson': {
+                name: 'Sarah Johnson',
+                position: 'CTO',
+                image: './img/AFT.jpg',
+                bio: 'Sarah is our technical expert specializing in scalable architecture and emerging technologies. With a background in computer science and 8 years of industry experience, she leads our development teams to deliver cutting-edge solutions.',
+                projects: 42,
+                experience: 8,
+                clients: 35,
+                linkedin: '#',
+                twitter: '#',
+                github: '#'
+            },
+            'michael-chen': {
+                name: 'Michael Chen',
+                position: 'Lead Developer',
+                image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+                bio: 'Michael is a full-stack developer with expertise in modern frameworks and cloud technologies. He has 6 years of experience building robust, scalable applications for clients across various industries.',
+                projects: 58,
+                experience: 6,
+                clients: 42,
+                linkedin: '#',
+                twitter: '#',
+                github: '#'
+            },
+            'emily-rodriguez': {
+                name: 'Emily Rodriguez',
+                position: 'UX Designer',
+                image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=761&q=80',
+                bio: 'Emily is a creative designer focused on user-centered design and interactive experiences. With 5 years in the industry, she specializes in creating intuitive interfaces that enhance user satisfaction and drive engagement.',
+                projects: 36,
+                experience: 5,
+                clients: 28,
+                linkedin: '#',
+                twitter: '#',
+                dribbble: '#'
+            }
+        };
+
+        // Pricing data
+        const pricingPlans = {
+            'starter': {
+                name: 'Starter',
+                price: '$499',
+                period: 'per month',
+                features: [
+                    'Basic Website Development',
+                    '5 Pages',
+                    'Responsive Design',
+                    'Basic SEO',
+                    'Email Support'
+                ]
+            },
+            'professional': {
+                name: 'Professional',
+                price: '$999',
+                period: 'per month',
+                features: [
+                    'Custom Web Application',
+                    'Up to 15 Pages',
+                    'Advanced SEO',
+                    'E-commerce Functionality',
+                    'Priority Support'
+                ]
+            },
+            'enterprise': {
+                name: 'Enterprise',
+                price: '$1999',
+                period: 'per month',
+                features: [
+                    'Full-stack Development',
+                    'Unlimited Pages',
+                    'Custom Features',
+                    'Dedicated Account Manager',
+                    '24/7 Premium Support'
+                ]
+            }
+        };
+
+        // Modal functionality
+        const serviceModal = document.getElementById('serviceModal');
+        const teamModal = document.getElementById('teamModal');
+        const pricingModal = document.getElementById('pricingModal');
+
+        // Service modal
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const serviceId = card.getAttribute('data-service');
+                const service = services[serviceId];
+                
+                document.getElementById('serviceModalTitle').textContent = service.title;
+                document.getElementById('serviceModalImage').src = service.image;
+                document.getElementById('serviceModalDescription').textContent = service.description;
+                
+                const featuresList = document.getElementById('serviceModalFeatures');
+                featuresList.innerHTML = '';
+                service.features.forEach(feature => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<i class="fas fa-check"></i> ${feature}`;
+                    featuresList.appendChild(li);
+                });
+                
+                serviceModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Team modal
+        document.querySelectorAll('.team-member').forEach(member => {
+            member.addEventListener('click', () => {
+                const memberId = member.getAttribute('data-member');
+                const memberData = teamMembers[memberId];
+                
+                document.getElementById('teamModalTitle').textContent = memberData.name;
+                document.getElementById('teamModalPosition').textContent = memberData.position;
+                document.getElementById('teamModalImage').src = memberData.image;
+                document.getElementById('teamModalBio').textContent = memberData.bio;
+                document.getElementById('teamModalProjects').textContent = memberData.projects;
+                document.getElementById('teamModalExperience').textContent = memberData.experience;
+                document.getElementById('teamModalClients').textContent = memberData.clients;
+                
+                if (memberData.linkedin) {
+                    document.getElementById('teamModalLinkedin').href = memberData.linkedin;
+                }
+                if (memberData.twitter) {
+                    document.getElementById('teamModalTwitter').href = memberData.twitter;
+                }
+                if (memberData.github) {
+                    document.getElementById('teamModalGithub').href = memberData.github;
+                }
+                
+                teamModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Pricing modal
+        document.querySelectorAll('.pricing-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const planId = card.getAttribute('data-plan');
+                const plan = pricingPlans[planId];
+                
+                document.getElementById('pricingModalTitle').textContent = plan.name + ' Plan';
+                document.getElementById('pricingModalName').textContent = plan.name;
+                document.getElementById('pricingModalPrice').textContent = plan.price;
+                document.getElementById('pricingModalPeriod').textContent = plan.period;
+                
+                const featuresList = document.getElementById('pricingModalFeatures');
+                featuresList.innerHTML = '';
+                plan.features.forEach(feature => {
+                    const li = document.createElement('li');
+                    li.textContent = feature;
+                    featuresList.appendChild(li);
+                });
+                
+                pricingModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Close modals
+        document.querySelectorAll('.close-modal').forEach(button => {
+            button.addEventListener('click', () => {
+                serviceModal.style.display = 'none';
+                teamModal.style.display = 'none';
+                pricingModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === serviceModal) {
+                serviceModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            if (e.target === teamModal) {
+                teamModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            if (e.target === pricingModal) {
+                pricingModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Service links in footer
+        document.querySelectorAll('.footer-col a[data-service]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const serviceId = link.getAttribute('data-service');
+                const serviceCard = document.querySelector(`.service-card[data-service="${serviceId}"]`);
+                serviceCard.click();
+            });
+        });
+    </script>
 </body>
 </html>
-
-

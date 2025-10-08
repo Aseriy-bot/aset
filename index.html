@@ -818,6 +818,13 @@
         .team-modal-image img {
             width: 100%;
             border-radius: var(--radius);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .team-modal-image img.clickable:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .team-modal-info {
@@ -982,8 +989,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-
-
     </style>
 </head>
 <body>
@@ -1774,6 +1779,19 @@
                 
                 teamModal.style.display = 'block';
                 document.body.style.overflow = 'hidden';
+                
+                // ADDED: Make image clickable for Aseriy Tuvana only
+                const teamModalImage = document.getElementById('teamModalImage');
+                if (memberId === 'aseriy-tuvana') {
+                    teamModalImage.classList.add('clickable');
+                    teamModalImage.addEventListener('click', function() {
+                        window.open('https://aseriy-bot.github.io/aseriy/', '_blank');
+                    });
+                } else {
+                    teamModalImage.classList.remove('clickable');
+                    // Remove any existing click event listeners
+                    teamModalImage.replaceWith(teamModalImage.cloneNode(true));
+                }
             });
         });
 
